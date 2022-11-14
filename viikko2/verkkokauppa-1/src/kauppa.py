@@ -1,14 +1,13 @@
-from varasto import Varasto
-from pankki import Pankki
+from varasto import varasto
+from pankki import pankki
 from ostoskori import Ostoskori
-from viitegeneraattori import Viitegeneraattori
+from viitegeneraattori import viitegeneraattori
 
 
 class Kauppa:
-    def __init__(self, varasto, pankki, viitegeneraattori):
+    def __init__(self):
         self._varasto = varasto
         self._pankki = pankki
-        self._viitegeneraattori = viitegeneraattori
         self._kaupan_tili = "33333-44455"
 
     def aloita_asiointi(self):
@@ -26,7 +25,7 @@ class Kauppa:
             self._varasto.ota_varastosta(tuote)
 
     def tilimaksu(self, nimi, tili_numero):
-        viite = self._viitegeneraattori.uusi()
+        viite = viitegeneraattori.uusi()
         summa = self._ostoskori.hinta()
 
         return self._pankki.tilisiirto(nimi, viite, tili_numero, self._kaupan_tili, summa)

@@ -13,3 +13,4 @@ class Pankki:
 
         # täällä olisi koodi joka ottaa yhteyden pankin verkkorajapintaan
         return True
+pankki = Pankki()
