@@ -23,14 +23,25 @@ class Ostoskori:
 
     def lisaa_tuote(self, lisattava: Tuote):
         for i, ostos in enumerate(self._ostokset):
-            if ostos.tuote.nimi() == lisattava.nimi():
+            if ostos.tuote== lisattava:
                 self._ostokset[i].muuta_lukumaaraa(1)
                 return
         self._ostokset.append(Ostos(lisattava))
 
     def poista_tuote(self, poistettava: Tuote):
-        # poistaa tuotteen
-        pass
+        
+        index, found= None, False
+        for i, ostos in enumerate(self._ostokset):
+            if ostos.tuote == poistettava:
+                index, found= i, True
+                print("löyty")
+                break
+        if not found:
+            return
+        if self._ostokset[index].lukumaara() > 1:
+            self._ostokset[index].muuta_lukumaaraa(-1)
+        else:
+            self._ostokset.pop(index)
 
     def tyhjenna(self):
         pass
