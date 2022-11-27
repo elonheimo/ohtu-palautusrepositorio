@@ -28,3 +28,8 @@ class TestOstoskori(unittest.TestCase):
         self.kori.lisaa_tuote(Tuote("Maito", 3))
         self.kori.lisaa_tuote(Tuote("Kerma", 2))
         self.assertEqual(self.kori.hinta(), 5)
+
+    def test_2_sama_jlkn_2_tavaraa_korissa(self):
+        self.kori.lisaa_tuote(Tuote("Maito", 3))
+        self.kori.lisaa_tuote(Tuote("Maito", 3))
+        self.assertEqual(self.kori.tavaroita_korissa(), 2)
