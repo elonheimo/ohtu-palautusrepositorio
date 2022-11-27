@@ -1,9 +1,10 @@
+from typing import List
 from tuote import Tuote
 from ostos import Ostos
 
 class Ostoskori:
     def __init__(self):
-        self._ostokset = []
+        self._ostokset: List[Ostos] = []
         # ostoskori tallettaa Ostos-oliota, yhden per korissa oleva Tuote
 
     def tavaroita_korissa(self):
@@ -19,8 +20,13 @@ class Ostoskori:
         # kertoo korissa olevien ostosten yhteenlasketun hinnan
 
     def lisaa_tuote(self, lisattava: Tuote):
-        # lisää tuotteen
-        pass
+        for i, ostos in enumerate(self._ostokset):
+            if ostos.tuote == lisattava:
+                self._ostokset[i].muuta_lukumaaraa(
+                    self._ostokset[i].lukumaara() + 1
+                )
+                return
+        self._ostokset.append(Ostos(lisattava))
 
     def poista_tuote(self, poistettava: Tuote):
         # poistaa tuotteen
