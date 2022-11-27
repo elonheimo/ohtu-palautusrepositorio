@@ -34,7 +34,6 @@ class Ostoskori:
         for i, ostos in enumerate(self._ostokset):
             if ostos.tuote == poistettava:
                 index, found= i, True
-                print("löyty")
                 break
         if not found:
             return
