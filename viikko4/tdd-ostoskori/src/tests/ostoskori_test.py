@@ -60,4 +60,12 @@ class TestOstoskori(unittest.TestCase):
             ostos.tuotteen_nimi(),
             "Maito"
         )
-        
+    
+    def test_lisaa_eri_2_tuotetta_korissa_2_eri_ostosta(self):
+        self.kori.lisaa_tuote(Tuote("Maito", 3))
+        self.kori.lisaa_tuote(Tuote("Kalja", 3))
+        self.assertNotEqual(
+            self.kori.ostokset()[0],
+            self.kori.ostokset()[1]
+        )
+
