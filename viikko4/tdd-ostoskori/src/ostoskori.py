@@ -23,10 +23,8 @@ class Ostoskori:
 
     def lisaa_tuote(self, lisattava: Tuote):
         for i, ostos in enumerate(self._ostokset):
-            if ostos.tuote == lisattava:
-                self._ostokset[i].muuta_lukumaaraa(
-                    self._ostokset[i].lukumaara() + 1
-                )
+            if ostos.tuote.nimi() == lisattava.nimi():
+                self._ostokset[i].muuta_lukumaaraa(1)
                 return
         self._ostokset.append(Ostos(lisattava))
 

@@ -10,5 +10,8 @@ class Tuote:
     def nimi(self):
         return self._nimi
 
+    def __eq__(self, toinen ) -> bool:
+        return (toinen.nimi == self.nimi() and toinen.hinta == self.hinta())
+
     def __repr__(self):
         return f"{self._nimi} hinta {self._hinta} euroa"
