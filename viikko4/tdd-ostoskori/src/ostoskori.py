@@ -43,8 +43,7 @@ class Ostoskori:
             self._ostokset.pop(index)
 
     def tyhjenna(self):
-        pass
-        # tyhjentää ostoskorin
+        self._ostokset = []
 
     def ostokset(self):
         return self._ostokset
