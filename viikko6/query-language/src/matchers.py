@@ -1,3 +1,4 @@
+
 class And:
     def __init__(self, *matchers):
         self._matchers = matchers
@@ -8,6 +9,33 @@ class And:
                 return False
 
         return True
+
+
+class All:
+    def __init__(self, *matchers):
+        self._matchers = matchers
+
+    def test(self, player):
+        return True
+
+
+class Or:
+    def __init__(self, *matchers):
+        self._matchers = matchers
+
+    def test(self, player):
+        for matcher in self._matchers:
+            if matcher.test(player):
+                return True
+        return False
+
+
+class Not:
+    def __init__(self, matcher):
+        self._matcher = matcher
+
+    def test(self, player):
+        return not self._matcher.test(player)
 
 
 class PlaysIn:
@@ -27,3 +55,42 @@ class HasAtLeast:
         player_value = getattr(player, self._attr)
 
         return player_value >= self._value
+
+
+class HasFewerThan:
+    def __init__(self, value, attr):
+        self._value = value
+        self._attr = attr
+
+    def test(self, player):
+        player_value = getattr(player, self._attr)
+
+        return player_value < self._value
+
+
+class QueryBuilder:
+    def __init__(self, ehdot=[]):
+
+        self.ehdot = [ehto for ehto in ehdot]
+
+    def playsIn(self, team: str):
+        self.ehdot.append(PlaysIn(team))
+        return QueryBuilder(self.ehdot)
+
+    def hasAtLeast(self, value, attr):
+        self.ehdot.append(HasAtLeast(value, attr))
+        return QueryBuilder(self.ehdot)
+
+    def hasFewerThan(self, value, attr):
+        self.ehdot.append(HasFewerThan(value, attr))
+        return QueryBuilder(self.ehdot)
+
+    def build(self):
+        print(f"{self.ehdot =}")
+        if len(self.ehdot) == 0:
+            return All()
+        return And(*self.ehdot)
+
+    def oneOf(self, *ehto_listat):
+        self.ehdot = [Or(*ehto_listat)]
+        return QueryBuilder(self.ehdot)
